@@ -3,12 +3,15 @@
 
 import httpx
 import json
-
+import re
 
 # function for preety printing JSON
 def print_json(json_string):
     print(json.dumps(json.loads(json_string), indent=4))
 
+# function for preety printing RDF
+def displayRDFString(string):
+    return re.sub(r'(\.\s)', r'\1\n', string)
 
 # set the URL
 URL = "https://ke.interconnectproject.eu/rest/"
@@ -28,5 +31,16 @@ headers = {
 r = httpx.get(URL + "sc/ki", headers=headers)
 
 # print the response
-print(r.text)
 print_json(r.text)
+
+# print the first argumentGraphPattern
+print('argumentGraphPattern\n')
+argumentGraphPattern = json.loads(r.text)[0]['argumentGraphPattern']
+print(displayRDFString(argumentGraphPattern))
+
+print()
+
+# print the first resultGraphPattern
+print('resultGraphPattern\n')
+resultGraphPattern = json.loads(r.text)[0]['resultGraphPattern']
+print(displayRDFString(resultGraphPattern))
