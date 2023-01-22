@@ -5,13 +5,28 @@ import httpx
 import json
 import re
 
+
 # function for preety printing JSON
 def print_json(json_string):
     print(json.dumps(json.loads(json_string), indent=4))
 
+
 # function for preety printing RDF
-def displayRDFString(string):
+def display_rdf_string(string):
     return re.sub(r'(\.\s)', r'\1\n', string)
+
+
+# function summary of available Knowledge Interactions
+def print_ki_summary(json_string):
+    print_json(json_string)
+    print()
+    for ki in json.loads(json_string):
+        print(ki['knowledgeInteractionName'])
+        print('argumentGraphPattern')
+        print(display_rdf_string(ki['argumentGraphPattern']))
+        print('resultGraphPattern')
+        print(display_rdf_string(ki['resultGraphPattern']))
+
 
 # set the URL
 URL = "https://ke.interconnectproject.eu/rest/"
@@ -30,17 +45,4 @@ headers = {
 }
 r = httpx.get(URL + "sc/ki", headers=headers)
 
-# print the response
-print_json(r.text)
-
-# print the first argumentGraphPattern
-print('argumentGraphPattern\n')
-argumentGraphPattern = json.loads(r.text)[0]['argumentGraphPattern']
-print(displayRDFString(argumentGraphPattern))
-
-print()
-
-# print the first resultGraphPattern
-print('resultGraphPattern\n')
-resultGraphPattern = json.loads(r.text)[0]['resultGraphPattern']
-print(displayRDFString(resultGraphPattern))
+print_ki_summary(r.text)
