@@ -34,7 +34,7 @@ services:
       DOCKER_NETWORK_NAME: jupyterhub-network
       # JupyterHub will spawn this Notebook image for users
       #DOCKER_NOTEBOOK_IMAGE: jupyter/minimal-notebook:latest
-      DOCKER_NOTEBOOK_IMAGE: matercomus/jupyterlab1:latest
+      DOCKER_NOTEBOOK_IMAGE: matercomus/jupyterlab2:latest
       # Notebook directory inside user image
       DOCKER_NOTEBOOK_DIR: /home/jovyan/work
       # Using this run command
@@ -42,9 +42,75 @@ services:
     command: >
       jupyterhub -f /srv/jupyterhub/jupyterhub_config.py
 
+  knowledge_engine:
+    image: ghcr.io/tno/knowledge-engine/smart-connector:1.2.0
+    container_name: knowledge_engine
+    ports:
+      - "8280:8280"
+    networks:
+      - jupyterhub-network
+
 volumes:
   jupyterhub-data:
 
 networks:
   jupyterhub-network:
     name: jupyterhub-network
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

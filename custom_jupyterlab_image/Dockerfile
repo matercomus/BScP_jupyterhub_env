@@ -21,6 +21,7 @@ RUN apt-get update --yes && \
     tzdata \
     unzip \
     vim-tiny \
+    docker \
     # git-over-ssh
     openssh-client \
     # less is needed to run help in R
@@ -47,6 +48,3 @@ USER ${NB_UID}
 
 # Add R mimetype option to specify how the plot returns from R to the browser
 #COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
-# run kernel gateway on container start, not notebook server
-EXPOSE 8888
-CMD ["jupyter", "kernelgateway", "--KernelGatewayApp.ip=0.0.0.0", "--KernelGatewayApp.port=8888"]
