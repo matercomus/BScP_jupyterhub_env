@@ -33,21 +33,13 @@ c.DockerSpawner.network_name = network_name
 notebook_dir = os.environ.get("DOCKER_NOTEBOOK_DIR") or "/home/jovyan/work"
 c.DockerSpawner.notebook_dir = notebook_dir
 
-# Mount the real user's Docker volume on the host to the notebook user's
-# notebook directory in the container
-# c.DockerSpawner.volumes = {"jupyterhub-user-{username}": notebook_dir}
-# c.DockerSpawner.volumes = { 'jupyterhub-user-{username}':'/home/jovyan/work', 'jupyterhub-shared':'/home/jovyan/work/shared', }
-# c.DockerSpawner.volumes = {
-# 'jupyterhub-user-{username}':'/home/jovyan/work',
-# 'jupyterhub-shared': {"bind": '/home/jovyan/work/shared', "mode": "rw"}
-# }
 from dockerspawner import DockerSpawner
 
 
 class MyDockerSpawner(DockerSpawner):
     def start(self, image=None, extra_create_kwargs=None, extra_host_config=None):
         # We define the data_dir then:
-        self.volumes["/home/matt/Dev/BSCProject/jupyterhub-deploy-docker/shared_data"] = {
+        self.volumes["/home/matt/Dev/BSCProject/NBs"] = {
             "bind": "/home/jovyan/work/shared_data",
             "mode": "ro",
         }
