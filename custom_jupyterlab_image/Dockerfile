@@ -21,7 +21,6 @@ RUN apt-get update --yes && \
     tzdata \
     unzip \
     vim-tiny \
-    docker \
     # git-over-ssh
     openssh-client \
     # less is needed to run help in R
@@ -40,8 +39,17 @@ RUN apt-get update --yes && \
 RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
 
 # install python packages
-RUN pip install \
-    jupyter-kernel-gateway
+#RUN pip install \
+#    fastapi \
+#    uvicorn \
+#    pydantic \
+#    uuid \
+#    requests \
+#    pandas \
+#    rdflib \
+#    SPARQLWrapper \
+#    seaborn \
+#    matplotlib
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER ${NB_UID}
