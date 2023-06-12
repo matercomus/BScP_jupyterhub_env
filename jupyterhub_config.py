@@ -52,9 +52,7 @@ class MyDockerSpawner(DockerSpawner):
 
 
 # Spawn single-user servers as Docker containers
-# c.JupyterHub.spawner_class = "dockerspawner.DockerSpawner"
 c.JupyterHub.spawner_class = MyDockerSpawner
-# c.Spawner.notebook_dir = '/home/jovyan/'
 # Remove containers once they are stopped
 c.DockerSpawner.remove = False
 
