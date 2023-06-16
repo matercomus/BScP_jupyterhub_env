@@ -39,7 +39,7 @@ from dockerspawner import DockerSpawner
 class MyDockerSpawner(DockerSpawner):
     def start(self, image=None, extra_create_kwargs=None, extra_host_config=None):
         # We define the data_dir then:
-        self.volumes["./shared_data"] = {
+        self.volumes["/shared_data"] = {
             "bind": "/home/jovyan/work/shared_data",
             "mode": "ro",
         }
