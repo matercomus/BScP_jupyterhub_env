@@ -21,7 +21,7 @@ RUN apt-get update --yes && \
     tzdata \
     unzip \
     vim-tiny \
-    # git-over-ssh
+    # git-over-ssh \
     openssh-client \
     # less is needed to run help in R
     # see: https://github.com/jupyter/docker-stacks/issues/1588
@@ -39,7 +39,8 @@ RUN apt-get update --yes && \
 RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
 
 # install python packages
-#RUN pip install \
+RUN pip install \
+    jupyterlab-git
 #    fastapi \
 #    uvicorn \
 #    pydantic \

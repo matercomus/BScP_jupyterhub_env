@@ -45,6 +45,7 @@ services:
   knowledge_engine:
     image: ghcr.io/tno/knowledge-engine/smart-connector:1.2.0
     container_name: knowledge_engine
+    restart: always
     ports:
       - "8280:8280"
     networks:
