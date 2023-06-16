@@ -40,6 +40,7 @@ RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
 
 # install python packages
 RUN pip install \
+    ipywidgets \
     jupyterlab-git
 #    fastapi \
 #    uvicorn \
