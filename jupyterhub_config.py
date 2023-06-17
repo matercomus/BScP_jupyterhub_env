@@ -52,7 +52,8 @@ class MyDockerSpawner(DockerSpawner):
             extra_create_kwargs=extra_create_kwargs,
             extra_host_config=extra_host_config,
         )
-
+# Increase time to spawn
+c.Spawner.http_timeout = int(60)
 # Spawn single-user servers as Docker containers
 c.JupyterHub.spawner_class = MyDockerSpawner
 # Remove containers once they are stopped
