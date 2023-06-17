@@ -35,11 +35,14 @@ c.DockerSpawner.notebook_dir = notebook_dir
 
 from dockerspawner import DockerSpawner
 
-
 class MyDockerSpawner(DockerSpawner):
     def start(self, image=None, extra_create_kwargs=None, extra_host_config=None):
-        # We define the data_dir then:
-        self.volumes["./home/matt/Dev/BSCProject/NBs"] = {
+        # Get the current working directory
+        cwd = os.environ.get("JUPYTERHUB_CWD")
+        # Construct the absolute path to the desired directory
+        data_dir = os.path.join(cwd, "shared_data")
+        # Define the volume
+        self.volumes[data_dir] = {
             "bind": "/home/jovyan/work/shared_data",
             "mode": "ro",
         }
@@ -49,7 +52,6 @@ class MyDockerSpawner(DockerSpawner):
             extra_create_kwargs=extra_create_kwargs,
             extra_host_config=extra_host_config,
         )
-
 
 # Spawn single-user servers as Docker containers
 c.JupyterHub.spawner_class = MyDockerSpawner

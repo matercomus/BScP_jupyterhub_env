@@ -33,12 +33,14 @@ services:
       # All containers will join this network
       DOCKER_NETWORK_NAME: jupyterhub-network
       # JupyterHub will spawn this Notebook image for users
-      #DOCKER_NOTEBOOK_IMAGE: jupyter/minimal-notebook:latest
-      DOCKER_NOTEBOOK_IMAGE: matercomus/jupyterlab2:latest
+#      DOCKER_NOTEBOOK_IMAGE: jupyter/minimal-notebook:latest
+      DOCKER_NOTEBOOK_IMAGE: matercomus/jupyterlab1:latest
       # Notebook directory inside user image
       DOCKER_NOTEBOOK_DIR: /home/jovyan/work
       # Using this run command
       DOCKER_SPAWN_CMD: start-singleuser.sh
+      # Project directory
+      JUPYTERHUB_CWD: ${CWD}
     command: >
       jupyterhub -f /srv/jupyterhub/jupyterhub_config.py
 
