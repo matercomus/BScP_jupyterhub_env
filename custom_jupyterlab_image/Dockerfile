@@ -1,7 +1,7 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 ARG OWNER=jupyter
-ARG BASE_CONTAINER=$OWNER/base-notebook
+ARG BASE_CONTAINER=$OWNER/base-notebook:lab-3.6.3
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Mateusz Kedzia <mateusz.kedzia@gmail.com>"
@@ -28,9 +28,6 @@ RUN apt-get update --yes && \
     less \
     # nbconvert dependencies
     # https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex
-    texlive-xetex \
-    texlive-fonts-recommended \
-    texlive-plain-generic \
     # Enable clipboard on Linux host systems
     xclip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -38,23 +35,13 @@ RUN apt-get update --yes && \
 # Create alternative for nano -> nano-tiny
 RUN update-alternatives --install /usr/bin/nano nano /bin/nano-tiny 10
 
+# Switch back to jovyan to avoid accidental container runs as root
+USER ${NB_UID}
+
 # install python packages
 RUN pip install \
     ipywidgets \
     jupyterlab-git
-#    fastapi \
-#    uvicorn \
-#    pydantic \
-#    uuid \
-#    requests \
-#    pandas \
-#    rdflib \
-#    SPARQLWrapper \
-#    seaborn \
-#    matplotlib
-
-# Switch back to jovyan to avoid accidental container runs as root
-USER ${NB_UID}
 
 # Add R mimetype option to specify how the plot returns from R to the browser
 #COPY --chown=${NB_UID}:${NB_GID} Rprofile.site /opt/conda/lib/R/etc/
