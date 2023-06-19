@@ -41,6 +41,18 @@ USER ${NB_UID}
 # install python packages
 RUN pip install \
     ipywidgets \
+    jupyterlab-code-formatter \
+    black \
+    isort \
+    fastapi \
+    matplotlib \
+    pandas \
+    pydantic \
+    rdflib \
+    requests \
+    seaborn \
+    SPARQLWrapper \
+    uvicorn \
     jupyterlab-git
 
 # Add R mimetype option to specify how the plot returns from R to the browser
